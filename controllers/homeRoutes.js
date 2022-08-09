@@ -24,16 +24,16 @@ router.get('/', async (req, res) => {
 
 hhelper.handlebars.registerHelper('JSONparse', function(hotels) {
   var htmlappend="<div> Hotels near your trip:"
-
+  console.log(hotels)
   testvar= [JSON.parse(hotels)]
   testvar.forEach(element => {
     htmlappend+="<div>"+element.names+"<div>"
-    htmlappend+="<div> It has an average star rating of "+element.rating+"<div>"
+    htmlappend+="<div> It has an average star rating of"+element.rating+"<div>"
     htmlappend+="<div> Per day its average price comes out to be "+element.minprice+"<div>"
     htmlappend+="<img src="+element.images+">"
   });
 htmlappend+="</div>"
-
+console.log(htmlappend)
 return htmlappend
 });
 router.get('/myTrip', async (req, res) => {
