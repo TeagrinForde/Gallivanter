@@ -39,7 +39,7 @@ var dummuri;
   url: dummuri,
   params: {name: sloc, search_type: "HOTEL"},
   headers: {
-    'X-RapidAPI-Key': 'f4b4d02dc6msh7290f78fa18e2c8p1a94f7jsn8cb6126b8807',
+    'X-RapidAPI-Key': '9dac82d08fmshd5fd50a1ce5d728p1d63dajsn47ccb1ccda9b',
     'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com'
   }
   };
@@ -49,7 +49,7 @@ var dummuri;
     url: dummuri,
     params: {name: sloc},
     headers: {
-      'X-RapidAPI-Key': 'f4b4d02dc6msh7290f78fa18e2c8p1a94f7jsn8cb6126b8807',
+      'X-RapidAPI-Key': '9dac82d08fmshd5fd50a1ce5d728p1d63dajsn47ccb1ccda9b',
       'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com'
     }
   }
@@ -70,7 +70,7 @@ var dummuri;
     url: urihotel,
     params: {name: eloc, search_type: "HOTEL"},
     headers: {
-      'X-RapidAPI-Key': 'f4b4d02dc6msh7290f78fa18e2c8p1a94f7jsn8cb6126b8807',
+      'X-RapidAPI-Key': '9dac82d08fmshd5fd50a1ce5d728p1d63dajsn47ccb1ccda9b',
       'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com'
     }
   };
@@ -80,7 +80,7 @@ var dummuri;
       url: dummuri,
       params: {name: eloc},
       headers: {
-        'X-RapidAPI-Key': 'f4b4d02dc6msh7290f78fa18e2c8p1a94f7jsn8cb6126b8807',
+        'X-RapidAPI-Key': '9dac82d08fmshd5fd50a1ce5d728p1d63dajsn47ccb1ccda9b',
         'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com'
       }
   }
@@ -88,7 +88,7 @@ var dummuri;
   let destvar = await axios.request(options2).then(function (response) {
     return response.data
   }).catch(function (error) {
-    console.error("Your shit didnt work on randos final data");
+    console.error(error);
   });
 
   let hotelvar = await axios.request(hoptions).then(function (response) {
@@ -112,7 +112,7 @@ var dummuri;
            
           },
           headers: {
-            'X-RapidAPI-Key': 'f4b4d02dc6msh7290f78fa18e2c8p1a94f7jsn8cb6126b8807',
+            'X-RapidAPI-Key': '9dac82d08fmshd5fd50a1ce5d728p1d63dajsn47ccb1ccda9b',
             'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com'
           }
         };
@@ -137,7 +137,7 @@ var dummuri;
                 amenities_ids: 'FINTRNT,FBRKFST'
               },
               headers: {
-                'X-RapidAPI-Key': 'f4b4d02dc6msh7290f78fa18e2c8p1a94f7jsn8cb6126b8807',
+                'X-RapidAPI-Key': '9da1ae7b41msh01fa9a23de84f6cp15b1cajsnf2cabb607a88',
                 'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com'
               }
             };
@@ -146,7 +146,7 @@ var dummuri;
                hold2data = response.data
                  return hold2data
             }).catch(function (error) {
-                console.error("Your shit didnt work on hotels final data");
+                console.error(error);
             });
           
           if(method=="CAR"){
@@ -160,7 +160,7 @@ var dummuri;
                 location_return: destvar[0].cityID
               },
               headers: {
-                'X-RapidAPI-Key': 'f4b4d02dc6msh7290f78fa18e2c8p1a94f7jsn8cb6126b8807',
+                'X-RapidAPI-Key': '9dac82d08fmshd5fd50a1ce5d728p1d63dajsn47ccb1ccda9b',
                 'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com'
               }
             };
@@ -170,27 +170,41 @@ var dummuri;
                 }).catch(function (error) {
                 });
               }
-            console.log(finaldataH.hotels[0].ratesSummary.minPrice)
-            hotelstr = JSON.stringify(finaldataH.hotels);
-             //console.log(finaldata.minTotalFare)
              if(method==="AIRPORT"){
              var min =finaldata.minTotalFare + parseInt(finaldataH.hotels[0].ratesSummary.minPrice)
              var max = finaldata.maxTotalFare + parseInt(finaldataH.hotels[0].ratesSummary.minPrice)
              var pricerange = min+"-"+max;
             }
             if(method==="CAR"){
-              console.log(finaldata.vehicleRates[0].id)
+              console.log("we got to car")
+              pricerange = parseInt(finaldata.vehicleRates[Object.keys(finaldata.vehicleRates)[0]].rates.USD.basePrices.DAILY)
              }
+             console.log(finaldataH.hotels[0].starRating)
+             console.log(finaldataH.hotels[0].thumbnailUrl)
+             console.log(finaldataH.hotels[0].name)
+             console.log(finaldataH.hotels[0].ratesSummary.minPrice)
+             var hotelobject= {
+              rating:[finaldataH.hotels[0].starRating],
+              images:[finaldataH.hotels[0].thumbnailUrl],
+              names:[finaldataH.hotels[0].name],
+              minprice:[finaldataH.hotels[0].ratesSummary.minPrice]
+            }
+            console.log(hotelobject)
+           hotf=JSON.stringify(hotelobject)
+           // console.log(hotelobject);
               var object= {
                price: pricerange,
                location: sloc,
                destination: eloc,
                transportation: method,
                startDate: sdate,
-               endDate: edate
+               endDate: edate,
+               hotels: hotf,
+               cars: "e",
+               flights:"e"
               }
-              console.log(object.transportation)
-             console.log(object);
+              console.log(object)
+             
     const Tripdata = await Trip.create(object);
     console.log(Tripdata);
     res.status(200).json(Tripdata);
@@ -248,6 +262,12 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
+/* var hotelobject= {
+              names:[finaldataH[0].name,finaldataH[1].name,finaldataH[2].name,finaldataH[3].name,finaldataH[4].name],
+              images:[finaldataH[0].thumbnailUrl,finaldataH[1].thumbnailUrl,finaldataH[2].thumbnailUrl,finaldataH[3].thumbnailUrl,finaldataH[4].thumbnailUrl],
+              rating:[finaldataH[0].starRating,finaldataH[1].starRating,finaldataH[2].starRating,finaldataH[3].starRating,finaldataH[4].starRating],
+              minprice:[finaldataH[0].ratesSummary.minPrice,finaldataH[1].ratesSummary.minPrice,finaldataH[2].ratesSummary.minPrice,finaldataH[3].ratesSummary.minPrice,finaldataH[4].ratesSummary.minPrice]
+            }*/
 
 module.exports = router;
 

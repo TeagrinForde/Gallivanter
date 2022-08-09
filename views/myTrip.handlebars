@@ -3,7 +3,8 @@
     <div class="row userInput">
         <h3 class="destination">
             <a href="/Trip/{{trip.id}}">Trip from {{location}} to {{destination}} on {{startDate}} - {{endDate}}.</a>
-            <a href="/Trip/{{trip.id}}">Trip has a price range of {{trip.price}} .</a>
+            <a href="/Trip/{{trip.id}}">Trip has a price range of {{trip.price}} {{#JSONparse trip.hotels}}{{/JSONparse}}</a>
+            
         </h3>
     </div>
 
@@ -33,6 +34,7 @@
     </div>
 </div>
 {{/each}}
+
 
 
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAigt9WzHgkJnidN6iEN2Uq0KMSEo8lef0&callback=initMap" defer></script>
