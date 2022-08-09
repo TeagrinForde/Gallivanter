@@ -20,9 +20,9 @@
 
   ## Usage
 
-  This website has been deployed through GitHub and Heroku and can be accessed in the links:
+  This website has been deployed through Heroku and can be accessed in the links:
   Heroku: 
-  GitHub: https://teagrinforde.github.io/Gallivanter/   
+  GitHub: https://quiet-eyrie-99473.herokuapp.com/
 
   ## Contribution Guidelines
 
@@ -33,6 +33,6 @@
   This project does not include any tests.
   
   ## Questions
-  If you would like to see more of our work, checkout our GitHub repositories under the user names: ```TeagrinForde```, ```vyang14```, ```fairiberry```, and ```Groceat```.
+  If you would like to see more of our work, checkout our GitHub repositories under the user names: ```TeagrinForde```, ```vyang14```, and ```Groceat```.
   <br>
-  If you have any additional questions, please contact us directly at:  TeagrinB@gmail.com, vyang1014888@gmail.com, farrahsyed97@gmail.com, or bhyfch1@gmail.com!
+  If you have any additional questions, please contact us directly at:  TeagrinB@gmail.com, vyang1014888@gmail.com, or bhyfch1@gmail.com!

@@ -20,18 +20,22 @@ router.post('/', async (req, res) => {
 });
 
 // User Login
-router.post("/login/:id", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
-    const dbUserData = await User.findByPk(req.params.id);
+    const userData = await User.findOne({
+      where: {
+        email: req.body.email
+      }
+    });
 
-    if (!dbUserData) {
+    if (!userData) {
       res
         .status(400)
         .json({ message: "Incorrect email or password. Please try again!" });
       return;
     }
 
-    const validPassword = await dbUserData.checkPassword(req.body.password);
+    const validPassword = await userData.checkPassword(req.body.password);
     if (!validPassword) {
       res
         .status(400)
@@ -43,10 +47,9 @@ router.post("/login/:id", async (req, res) => {
       req.session.user_id = userData.id;
       req.session.loggedIn = true;
 
-      res.status(200).json({ user: dbUserData, message: "You are logged in!" });
+      res.status(200).json({ user: userData, message: "You are logged in!" });
     });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -62,52 +65,24 @@ router.post("/logout", (req, res) => {
   }
 });
 
+// DELETE a User can be added later
+// router.delete('/:id', async (req, res) => {
+//   try {
+//     const userData = await User.destroy({
+//       where: {
+//         id: req.params.id,
+//       },
+//     });
 
-// GET all users
-router.get('/', async (req, res) => {
-  try {
-    const userData = await User.findAll(
-    );
-    res.status(200).json(userData);
-  } catch (err) {
-    res.status(500).json("Something went wrong. Please try again.");
-  }
-});
+//     if (!userData) {
+//       res.status(404).json({ message: 'No user found with that id!' });
+//       return;
+//     }
 
-// GET a single user
-router.get('/:id', async (req, res) => {
-  try {
-    const userData = await User.findByPk(req.params.id, {
-      include: [{ model: User }],
-    });
-    if (!userData) {
-      res.status(404).json({ message: 'No user found with that id!' });
-      return;
-    }
-    res.status(200).json(userData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// DELETE a User
-router.delete('/:id', async (req, res) => {
-  try {
-    const userData = await User.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
-
-    if (!userData) {
-      res.status(404).json({ message: 'No user found with that id!' });
-      return;
-    }
-
-    res.status(200).json(userData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+//     res.status(200).json(userData);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 module.exports = router;

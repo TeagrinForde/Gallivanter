@@ -2,11 +2,11 @@
     <form class="searchForm">
         <div class="col s8">
             <div class="input-field col s6">
-                <textarea id="departForm" class="materialize-textarea"></textarea>
-                <label for="departForm">Where are you departing from?</label>
+                <textarea id="location" class="materialize-textarea"></textarea>
+                <label for="location">Where are you departing from?</label>
             </div>
             <div class="col s6">
-                <input type="text" class="datepicker" id="dateLeave" placeholder="Pick your departure date.">
+                <input type="text" class="datepicker" id="startDate" placeholder="Pick your departure date.">
             </div>
 
             <div class="col s12 left">
@@ -20,16 +20,16 @@
             </div>
 
             <div class="input-field col s6">
-                <textarea id="goingTo" class="materialize-textarea"></textarea>
-                <label for="goingTo">Where is your destination?</label>
+                <textarea id="destination" class="materialize-textarea"></textarea>
+                <label for="destination">Where is your destination?</label>
             </div>
 
             <div class="col s6">
-                <input type="text" class="datepicker" id="dateReturn" placeholder="Pick your return date.">
+                <input type="text" class="datepicker" id="endDate" placeholder="Pick your return date.">
             </div>
         </div>
 
-        <div class="col s4" id="travelType">
+        <div class="col s4" id="method">
         <h4>How are we getting you there?</h4>
         <button class='dropdown-trigger btn' data-target='dropdown1' name="userBtn" id='dropBtn'>Let's go!</button>
         <ul id='dropdown1' class='dropdown-content'>
