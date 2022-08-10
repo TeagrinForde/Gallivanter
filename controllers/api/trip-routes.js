@@ -13,8 +13,8 @@ var sloc = req.body.location
 var eloc = req.body.destination
 var sdate = req.body.startDate
 var edate = req.body.endDate
-var method = req.body.transportation
-
+var method = req.body.method
+console.log(sloc,eloc,method)
 var dummuri;
 
   const urihotel = 'https://priceline-com-provider.p.rapidapi.com/v1/hotels/locations'
@@ -28,7 +28,7 @@ var dummuri;
   if(method === "HOTEL"){
   var options = {
   method: 'GET',
-  url: dummuri,
+  url: urihotel,
   params: {name: sloc, search_type: "HOTEL"},
   headers: {
     'X-RapidAPI-Key': '9dac82d08fmshd5fd50a1ce5d728p1d63dajsn47ccb1ccda9b',
@@ -49,7 +49,7 @@ var dummuri;
   let startvar = await axios.request(options).then(function (response) {
      return response.data
   }).catch(function (error) {
-  console.error(error);
+  console.error("error everywhere");
   });
   
   
@@ -80,13 +80,13 @@ var dummuri;
   let destvar = await axios.request(options2).then(function (response) {
     return response.data
   }).catch(function (error) {
-    console.error(error);
+    console.error("error there");
   });
 
   let hotelvar = await axios.request(hoptions).then(function (response) {
     return response.data
   }).catch(function (error) {
-    console.error(error);
+    console.error("error here ");
   });
   console.log(sdate+','+edate)
   console.log(startvar[0].id+","+destvar[0].id)
@@ -112,7 +112,7 @@ var dummuri;
         finaldata = await axios.request(options).then(function (response) {
             return response.data.getAirFlightRoundTrip.results.air_search_rsp.total_trip_summary
         }).catch(function (error) {
-            console.error(error);
+            console.error("error caught");
         });
       }
      
@@ -138,7 +138,7 @@ var dummuri;
                hold2data = response.data
                  return hold2data
             }).catch(function (error) {
-                console.error(error);
+                console.error("error caught");
             });
           
           if(method=="CAR"){
